@@ -35,6 +35,7 @@ class AddAppProvider extends ChangeNotifier {
   TextEditingController setupCompletedController = TextEditingController();
   TextEditingController instructionsController = TextEditingController();
   TextEditingController authUrlController = TextEditingController();
+  TextEditingController appHomeUrlController = TextEditingController();
 
   // Pricing
   TextEditingController priceController = TextEditingController();
@@ -137,6 +138,7 @@ class AddAppProvider extends ChangeNotifier {
       webhookUrlController.text = app.externalIntegration!.webhookUrl;
       setupCompletedController.text = app.externalIntegration!.setupCompletedUrl ?? '';
       instructionsController.text = app.externalIntegration!.setupInstructionsFilePath;
+      appHomeUrlController.text = app.externalIntegration!.appHomeUrl ?? '';
       if (app.externalIntegration!.authSteps.isNotEmpty) {
         authUrlController.text = app.externalIntegration!.authSteps.first.url;
       }
@@ -170,6 +172,7 @@ class AddAppProvider extends ChangeNotifier {
     setupCompletedController.clear();
     instructionsController.clear();
     authUrlController.clear();
+    appHomeUrlController.clear();
     priceController.clear();
     selectePaymentPlan = null;
     termsAgreed = false;
@@ -427,9 +430,10 @@ class AddAppProvider extends ChangeNotifier {
       if (capability.id == 'external_integration') {
         data['external_integration'] = {
           'triggers_on': triggerEvent,
-          'webhook_url': webhookUrlController.text,
-          'setup_completed_url': setupCompletedController.text,
-          'setup_instructions_file_path': instructionsController.text,
+          'webhook_url': webhookUrlController.text.trim(),
+          'setup_completed_url': setupCompletedController.text.trim(),
+          'setup_instructions_file_path': instructionsController.text.trim(),
+          'app_home_url': appHomeUrlController.text.trim(),
           'auth_steps': [],
         };
         if (authUrlController.text.isNotEmpty) {
@@ -488,9 +492,10 @@ class AddAppProvider extends ChangeNotifier {
       if (capability.id == 'external_integration') {
         data['external_integration'] = {
           'triggers_on': triggerEvent,
-          'webhook_url': webhookUrlController.text,
-          'setup_completed_url': setupCompletedController.text,
-          'setup_instructions_file_path': instructionsController.text,
+          'webhook_url': webhookUrlController.text.trim(),
+          'setup_completed_url': setupCompletedController.text.trim(),
+          'setup_instructions_file_path': instructionsController.text.trim(),
+          'app_home_url': appHomeUrlController.text.trim(),
           'auth_steps': [],
         };
         if (authUrlController.text.isNotEmpty) {
